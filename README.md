@@ -1,8 +1,8 @@
 # TableUnspanner
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/table_unspanner`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Takes a table with `rowspan` and/or `colspan` attributes on `<th>` and `<td>`
+elements and returns a version of the table with those replaced by duplicate
+rows to make scraping easier.
 
 ## Installation
 
@@ -22,7 +22,29 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+### Standalone
+
+```ruby
+require 'table_unspanner'
+
+table = <<-TABLE
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+    <td rowspan="2">Test subject</td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+  </tr>
+</table>
+TABLE
+
+puts TableUnspanner::UnspannedTable.new(table: table).to_s
+```
 
 ## Development
 
@@ -32,5 +54,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/table_unspanner.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/everypolitician/table_unspanner.
