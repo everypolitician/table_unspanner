@@ -1,11 +1,46 @@
 require 'test_helper'
 
-class TableUnspannerTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::TableUnspanner::VERSION
+describe 'TableUnspanner' do
+  it 'has a version number' do
+    ::TableUnspanner::VERSION.wont_be_nil
   end
 
-  def test_it_does_something_useful
-    assert false
+  describe 'UnspannedTable' do
+    it 'replaces span elements with multiple cells' do
+      table = <<-TABLE
+      <table>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+        </tr>
+        <tr>
+          <td>Alice</td>
+          <td rowspan="2">Test subject</td>
+        </tr>
+        <tr>
+          <td>Bob</td>
+        </tr>
+      </table>
+      TABLE
+
+      expected = <<-TABLE
+<table>
+<tr>
+<th>Name</th>
+<th>Role</th>
+</tr>
+<tr>
+<td>Alice</td>
+<td>Test subject</td>
+</tr>
+<tr>
+<td>Bob</td>
+<td>Test subject</td>
+</tr>
+</table>
+      TABLE
+
+      TableUnspanner::UnspannedTable.new(table: table).to_s.strip.must_equal expected.strip
+    end
   end
 end
