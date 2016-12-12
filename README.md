@@ -46,6 +46,22 @@ TABLE
 puts TableUnspanner::UnspannedTable.new(table: table).to_s
 ```
 
+### With `scraped`
+
+This library comes with support for
+[`scraped`](https://github.com/everypolitician/scraped) out of the box. You can
+use it as a decorator and it will unspan _all_ the tables on the current page.
+
+```ruby
+require 'table_unspanner/scraped'
+
+class MemberPage < Scraped::HTML
+  decorator TableUnspanner::Decorator
+
+  # Other fields etc
+end
+```
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
