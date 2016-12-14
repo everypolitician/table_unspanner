@@ -43,9 +43,25 @@ table = <<-TABLE
 </table>
 TABLE
 
-puts TableUnspanner::UnspannedTable.new(table: table).children
-# => <tr><th>Name</th><th>Role</th></tr><tr><td>Alice</td><td>Test subject</td></tr><tr><td>Bob</td><td>Test subject</td></tr>
+puts TableUnspanner::UnspannedTable.new(table: table).to_s
 ```
+
+When the above code is run it will output the following:
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Role</th>
+      </tr>
+      <tr>
+        <td>Alice</td>
+        <td>Test subject</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Test subject</td>
+      </tr>
+    </table>
 
 ### With `scraped`
 
