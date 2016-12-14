@@ -6,7 +6,7 @@ module TableUnspanner
     def body
       Nokogiri::HTML(super).tap do |doc|
         doc.css('table').each do |table|
-          table.children = UnspannedTable.new(table).children
+          table.children = UnspannedTable.new(table: table).children
         end
       end.to_s
     end
