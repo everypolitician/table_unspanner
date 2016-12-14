@@ -23,24 +23,10 @@ describe 'TableUnspanner' do
       </table>
       TABLE
 
-      expected = <<-TABLE
-<table>
-<tr>
-<th>Name</th>
-<th>Role</th>
-</tr>
-<tr>
-<td>Alice</td>
-<td>Test subject</td>
-</tr>
-<tr>
-<td>Bob</td>
-<td>Test subject</td>
-</tr>
-</table>
-      TABLE
+      expected = "<tr><th>Name</th><th>Role</th></tr><tr><td>Alice</td>" \
+        "<td>Test subject</td></tr><tr><td>Bob</td><td>Test subject</td></tr>"
 
-      TableUnspanner::UnspannedTable.new(table: table).to_s.strip.must_equal expected.strip
+      TableUnspanner::UnspannedTable.new(table: table).children.must_equal expected
     end
   end
 end

@@ -8,9 +8,8 @@ module TableUnspanner
       @table = Nokogiri::HTML.fragment(table.to_s).at_css('table')
     end
 
-    def to_s
-      table.children = reparsed.map { |c| '<tr>' + c.map(&:to_html).join + '</tr>' }.join
-      table.to_s
+    def children
+      reparsed.map { |c| '<tr>' + c.map(&:to_html).join + '</tr>' }.join
     end
 
     private
