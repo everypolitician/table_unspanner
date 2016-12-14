@@ -44,6 +44,7 @@ table = <<-TABLE
 TABLE
 
 puts TableUnspanner::UnspannedTable.new(table: table).children
+# => <tr><th>Name</th><th>Role</th></tr><tr><td>Alice</td><td>Test subject</td></tr><tr><td>Bob</td><td>Test subject</td></tr>
 ```
 
 ### With `scraped`
