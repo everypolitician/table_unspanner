@@ -1,4 +1,5 @@
 require 'scraped'
+require 'table_unspanner'
 
 module TableUnspanner
   class Decorator < Scraped::Response::Decorator
