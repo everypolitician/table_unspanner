@@ -43,7 +43,7 @@ table = <<-TABLE
 </table>
 TABLE
 
-puts TableUnspanner::UnspannedTable.new(table: table).to_s
+puts TableUnspanner::UnspannedTable.new(table: table).children
 ```
 
 ### With `scraped`
