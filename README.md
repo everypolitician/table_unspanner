@@ -22,7 +22,46 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To use the library create a new instance of `TableUnspanner::UnspannedTable`, passing it a `table` keyword argument that contains an HTML string representing your table. Then call the `#html_string` method which will return a string containing the processed HTML table.
+
+```ruby
+require 'table_unspanner'
+
+table = <<-TABLE
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+    <td rowspan="2">Test subject</td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+  </tr>
+</table>
+TABLE
+
+puts TableUnspanner::UnspannedTable.new(table: table).html_string
+```
+
+When the above code is run it will output the following:
+
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Role</th>
+      </tr>
+      <tr>
+        <td>Alice</td>
+        <td>Test subject</td>
+      </tr>
+      <tr>
+        <td>Bob</td>
+        <td>Test subject</td>
+      </tr>
+    </table>
 
 ## Development
 
