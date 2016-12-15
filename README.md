@@ -1,8 +1,8 @@
 # TableUnspanner
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/table_unspanner`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Takes a string containing an HTML `<table>` which has `rowspan` and/or `colspan`
+attributes on `<th>` and `<td>` elements and returns a processed version of the
+table with those attributes replaced by duplicate rows to make scraping them easier.
 
 ## Installation
 
