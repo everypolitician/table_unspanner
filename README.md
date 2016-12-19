@@ -4,6 +4,47 @@ Takes a string containing an HTML `<table>` which has `rowspan` and/or `colspan`
 attributes on `<th>` and `<td>` elements and returns a processed version of the
 table with those attributes replaced by duplicate rows to make scraping them easier.
 
+## Example
+
+If you're scraping a webpage that has the table below on it you want the row containing Bob to also contains the `<td>` element which is implied by the `rowspan` attribute on the previous row.
+
+```html
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+    <td rowspan="2">Test subject</td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+  </tr>
+</table>
+```
+
+After running the table above though `table_unspanner` it would then look like this, making it much easier to scrape.
+
+```html
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+    <td>Test subject</td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+    <td>Test subject</td>
+  </tr>
+</table>
+```
+
+It also does what you'd expect for any `colspan` attributes that it encounters.
+
 ## Installation
 
 Add this line to your application's Gemfile:
