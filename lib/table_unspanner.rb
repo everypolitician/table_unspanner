@@ -12,6 +12,10 @@ module TableUnspanner
       table
     end
 
+    def html_string
+      nokogiri_node.to_s
+    end
+
     private
 
     attr_reader :table

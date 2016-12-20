@@ -40,6 +40,28 @@ describe 'TableUnspanner' do
         unspanned_table.nokogiri_node.xpath('tr[2]/td[2]').text.must_equal 'Test subject'
         unspanned_table.nokogiri_node.xpath('tr[3]/td[2]').text.must_equal 'Test subject'
       end
+
+      it 'can be returned as a string' do
+        unspanned_table.html_string.must_equal <<-TABLE.strip
+<table>
+<tr>
+<th>Employees</th>
+<th>Name</th>
+<th>Role</th>
+</tr>
+<tr>
+<th>Employees</th>
+<td>Alice</td>
+<td>Test subject</td>
+</tr>
+<tr>
+<th>Employees</th>
+<td>Bob</td>
+<td>Test subject</td>
+</tr>
+</table>
+        TABLE
+      end
     end
 
     describe 'with colspan attributes' do
