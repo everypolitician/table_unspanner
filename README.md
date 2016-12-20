@@ -63,7 +63,7 @@ Or install it yourself as:
 
 ## Usage
 
-To use the library create a new instance of `TableUnspanner::UnspannedTable`, passing it a `table` keyword argument that contains an HTML string representing your table. Then call the `#html_string` method which will return a string containing the processed HTML table.
+To use the library create a new instance of `TableUnspanner::UnspannedTable`, passing a string containing an HTML `<table>` to the constructor. You can then call the `#nokogiri_node` method to retrieve the processed version of the table as a `Nokogiri::Node` instance. Alternatively you can call `#html_string` if you just want to get back a string containing the HTML for the table.
 
 ```ruby
 require 'table_unspanner'
