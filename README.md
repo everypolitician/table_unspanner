@@ -84,7 +84,7 @@ table = <<-TABLE
 </table>
 TABLE
 
-unspanned_table = TableUnspanner::UnspannedTable.new(table: table)
+unspanned_table = TableUnspanner::UnspannedTable.new(table)
 
 # Access the `Nokogiri::Node` instance for the table
 unspanned_table.nokogiri_node
