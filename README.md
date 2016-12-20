@@ -1,8 +1,49 @@
 # TableUnspanner
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/table_unspanner`. To experiment with that code, run `bin/console` for an interactive prompt.
+Takes a string containing an HTML `<table>` which has `rowspan` and/or `colspan`
+attributes on `<th>` and `<td>` elements and returns a processed version of the
+table with those attributes replaced by duplicate rows to make scraping them easier.
 
-TODO: Delete this and the text above, and describe your gem
+## Example
+
+If you're scraping a webpage that has the table below on it you want the row containing Bob to also contains the `<td>` element which is implied by the `rowspan` attribute on the previous row.
+
+```html
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+    <td rowspan="2">Test subject</td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+  </tr>
+</table>
+```
+
+After running the table above though `table_unspanner` it would then look like this, making it much easier to scrape.
+
+```html
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+    <td>Test subject</td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+    <td>Test subject</td>
+  </tr>
+</table>
+```
+
+It also does what you'd expect for any `colspan` attributes that it encounters.
 
 ## Installation
 
@@ -22,7 +63,35 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To use the library create a new instance of `TableUnspanner::UnspannedTable`, passing a string containing an HTML `<table>` to the constructor. You can then call the `#nokogiri_node` method to retrieve the processed version of the table as a `Nokogiri::Node` instance. Alternatively you can call `#html_string` if you just want to get back a string containing the HTML for the table.
+
+```ruby
+require 'table_unspanner'
+
+table = <<-TABLE
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Role</th>
+  </tr>
+  <tr>
+    <td>Alice</td>
+    <td rowspan="2">Test subject</td>
+  </tr>
+  <tr>
+    <td>Bob</td>
+  </tr>
+</table>
+TABLE
+
+unspanned_table = TableUnspanner::UnspannedTable.new(table)
+
+# Access the `Nokogiri::Node` instance for the table
+unspanned_table.nokogiri_node
+
+# Or just get the raw HTML as a string
+unspanned_table.html_string
+```
 
 ## Development
 
@@ -32,5 +101,4 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/table_unspanner.
-
+Bug reports and pull requests are welcome on GitHub at https://github.com/everypolitician/table_unspanner.
