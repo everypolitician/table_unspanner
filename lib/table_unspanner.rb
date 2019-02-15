@@ -8,7 +8,7 @@ module TableUnspanner
     end
 
     def nokogiri_node
-      table.children = reparsed.map { |c| '<tr>' + c.map(&:to_html).join + '</tr>' }.join
+      table.children = reparsed.map { |c| '<tr>' + c.map { |n| n ? n.to_html : "<td>" }.join + '</tr>' }.join
       table
     end
 
