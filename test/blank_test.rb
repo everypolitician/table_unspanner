@@ -29,13 +29,12 @@ describe 'TableUnspanner' do
             <tr>
               <td>Alice</td>
               <td>Adviser</td>
-              <td rowspan="2">2016-01-01</td>
-              <td>2016-10-31</td>
+              <td>2016-01-01</td>
+              <td rowspan="2">2016-10-31</td>
             </tr>
             <tr>
               <td>Bob</td>
               <td>Builder</td>
-              <td>2016-11-30</td>
             </tr>
           </table>
         TABLE
@@ -62,8 +61,8 @@ describe 'TableUnspanner' do
               <th>Employees</th>
               <td>Bob</td>
               <td>Builder</td>
-              <td>2016-01-01</td>
-              <td>2016-11-30</td>
+              <td></td>
+              <td>2016-10-31</td>
             </tr>
           </table>
         TABLE
@@ -92,8 +91,8 @@ describe 'TableUnspanner' do
         row = noko.xpath('.//tr[3]/td').map(&:text)
         row[0].must_equal 'Bob'
         row[1].must_equal 'Builder'
-        row[2].must_equal '2016-01-01'
-        row[3].must_equal '2016-11-30'
+        row[2].must_equal ''
+        row[3].must_equal '2016-10-31'
       end
 
       it 'can be returned as a string' do

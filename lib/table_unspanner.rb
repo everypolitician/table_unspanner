@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'table_unspanner/version'
 require 'nokogiri'
 
@@ -8,7 +10,9 @@ module TableUnspanner
     end
 
     def nokogiri_node
-      table.children = reparsed.map { |c| '<tr>' + c.map(&:to_html).join + '</tr>' }.join
+      table.children = reparsed.map do |c|
+        '<tr>' + c.map { |n| n ? n.to_html : '<td>' }.join + '</tr>'
+      end.join
       table
     end
 
